@@ -96,9 +96,16 @@ var mxUtils =
 		{
 			return function(element)
 			{
-				return (element != null) ?
-					window.getComputedStyle(element, '') :
-					null;
+				/* Change done to be able to work with mxgraph in Web Component */
+				// CUSTOM FIX for ShadowRoot compatibility
+				if (!element || element.toString() === '[object ShadowRoot]') {
+					return null;
+				} else {
+					return window.getComputedStyle(element, '');
+				}
+				// return (element != null) ?
+				// 	window.getComputedStyle(element, '') :
+				// 	null;
 			};
 		}
 	}(),
